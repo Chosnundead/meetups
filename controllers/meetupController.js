@@ -67,35 +67,61 @@ class MeetupController {
          *   "location": "Example street, 123"
          * }
          */
-        let body = "";
-
-        req.on("data", (chunk) => {
-            body += chunk.toString();
-        });
-
-        req.on("end", async () => {
-            const { error, value } = meetupSchema.validate(JSON.parse(body));
-
+        try {
+            req.ability.throwUnlessCan("create", "Meetup");
+            const { error, value } = meetupSchema.validate(req.body);
             if (error) {
                 return res
                     .status(400)
                     .json({ error: error.details[0].message });
             }
-
             const meetup = await Meetup.create(value);
             res.json(meetup);
-        });
+        } catch (error) {
+            return res.status(403).json({ error: error.message });
+        }
     }
+    // async createMeetup(req, res) {
+    //     /**
+    //      * Пример запроса на добавление митапа:
+    //      * POST /meetups
+    //      * {
+    //      *   "title": "Example Meetup",
+    //      *   "description": "This is a description of an example meetup",
+    //      *   "tags": ["example", "meetup"],
+    //      *   "event_time": "2022-01-01T12:00:00Z",
+    //      *   "location": "Example street, 123"
+    //      * }
+    //      */
+    //     let body = "";
+
+    //     req.on("data", (chunk) => {
+    //         body += chunk.toString();
+    //     });
+
+    //     req.on("end", async () => {
+    //         const { error, value } = meetupSchema.validate(JSON.parse(body));
+
+    //         if (error) {
+    //             return res
+    //                 .status(400)
+    //                 .json({ error: error.details[0].message });
+    //         }
+
+    //         const meetup = await Meetup.create(value);
+    //         res.json(meetup);
+    //     });
+    // }
 
     async updateMeetup(req, res) {
-        let body = "";
-
-        req.on("data", (chunk) => {
-            body += chunk.toString();
-        });
-
-        req.on("end", async () => {
-            const { error, value } = meetupSchema.validate(JSON.parse(body));
+        try {
+            if (
+                req.payload.id !=
+                (await Meetup.findByPk(req.params.id)).author_id
+            ) {
+                throw new Error("You cannot edit this meetup");
+            }
+            const { error, value } = meetupSchema.validate(req.body);
 
             if (error) {
                 return res
@@ -107,14 +133,26 @@ class MeetupController {
                 where: { meetup_id: req.params.id },
             });
             res.json(meetup);
-        });
+        } catch (error) {
+            res.status(403).json({ error: error.message });
+        }
     }
 
     async deleteMeetup(req, res) {
-        const meetup = await Meetup.destroy({
-            where: { meetup_id: req.params.id },
-        });
-        res.json(meetup);
+        try {
+            if (
+                req.payload.id !=
+                (await Meetup.findByPk(req.params.id)).author_id
+            ) {
+                throw new Error("You cannot delete this meetup");
+            }
+            const meetup = await Meetup.destroy({
+                where: { meetup_id: req.params.id },
+            });
+            res.json(meetup);
+        } catch (error) {
+            res.status(403).json({ error: error.message });
+        }
     }
 }
 

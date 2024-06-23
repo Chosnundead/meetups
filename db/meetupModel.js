@@ -29,6 +29,10 @@ const Meetup = db.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        author_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     },
     {
         timestamps: false,
