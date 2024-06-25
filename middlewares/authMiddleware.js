@@ -21,25 +21,15 @@ const authMiddleware = (req, res, next) => {
 
                     switch (req.payload.role) {
                         case "admin":
-                            can("read", "Meetup");
-                            can("create", "Meetup");
-                            can("update", "Meetup");
-                            can("delete", "Meetup");
-                            can("read", "Users", {
-                                user_id: req.payload.id,
-                            });
+                            can(
+                                ["read", "create", "update", "delete"],
+                                ["Meetup", "Users"]
+                            );
                             break;
                         case "user":
-                            can("read", "Meetup");
-                            can("create", "Meetup");
-                            can("update", "Meetup", {
+                            can(["read", "create"], "Meetup");
+                            can(["update", "delete"], "Meetup", {
                                 author_id: req.payload.id,
-                            });
-                            can("delete", "Meetup", {
-                                author_id: req.payload.id,
-                            });
-                            can("read", "Users", {
-                                user_id: req.payload.id,
                             });
                             break;
                         default:

@@ -7,6 +7,7 @@ const meetupSchema = Joi.object({
     event_time: Joi.date().iso().required(),
     location: Joi.string().required(),
     author_id: Joi.number().required(),
+    subscribers: Joi.array().items(Joi.number()).default([]),
 });
 
 module.exports = meetupSchema;

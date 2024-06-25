@@ -33,6 +33,10 @@ const Meetup = db.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        subscribers: {
+            type: DataTypes.ARRAY(DataTypes.INTEGER),
+            defaultValue: [],
+        },
     },
     {
         timestamps: false,
