@@ -1,5 +1,19 @@
 let openapi = {
     openapi: "3.0.1",
+    components: {
+        securitySchemes: {
+            cookieAuth: {
+                type: "apiKey",
+                in: "cookie",
+                name: "accessToken",
+            },
+        },
+    },
+    security: [
+        {
+            cookieAuth: [],
+        },
+    ],
     paths: {
         "/meetups": {
             get: {
@@ -16,29 +30,177 @@ let openapi = {
                                     items: {
                                         type: "object",
                                         properties: {
-                                            id: { type: "string" },
-                                            title: { type: "string" },
-                                            description: { type: "string" },
-                                            tags: {
+                                            data: {
                                                 type: "array",
-                                                items: { type: "string" },
+                                                items: {
+                                                    type: "object",
+                                                    properties: {
+                                                        meetup_id: {
+                                                            type: "number",
+                                                        },
+                                                        title: {
+                                                            type: "string",
+                                                        },
+                                                        description: {
+                                                            type: "string",
+                                                        },
+                                                        tags: {
+                                                            type: "array",
+                                                            items: {
+                                                                type: "string",
+                                                            },
+                                                        },
+                                                        event_time: {
+                                                            type: "string",
+                                                            format: "date-time",
+                                                        },
+                                                        location: {
+                                                            type: "string",
+                                                        },
+                                                        author_id: {
+                                                            type: "number",
+                                                        },
+                                                        subscribers: {
+                                                            type: "array",
+                                                            items: {
+                                                                type: "number",
+                                                            },
+                                                        },
+                                                    },
+                                                },
                                             },
-                                            event_time: {
-                                                type: "string",
-                                                format: "date-time",
-                                            },
-                                            location: { type: "string" },
                                         },
                                     },
                                 },
                                 example: [
                                     {
-                                        id: "2",
-                                        title: "asd",
-                                        description: "test description",
-                                        tags: ["asd", "test"],
-                                        event_time: "1999-06-19T15:30:00.000Z",
-                                        location: "test",
+                                        data: [
+                                            {
+                                                meetup_id: 3,
+                                                title: "2121",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 4,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 5,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 6,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 7,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 8,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 12,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 13,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 14,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                            {
+                                                meetup_id: 15,
+                                                title: "1",
+                                                description:
+                                                    "This is a description of an example meetup",
+                                                tags: ["test", "second"],
+                                                event_time:
+                                                    "2022-01-01T12:00:00.000Z",
+                                                location: "Example street, 123",
+                                                author_id: 2,
+                                                subscribers: [],
+                                            },
+                                        ],
+                                        pagination: {
+                                            page: 1,
+                                            totalPages: 5,
+                                            totalItems: 46,
+                                        },
                                     },
                                 ],
                             },
@@ -57,7 +219,6 @@ let openapi = {
                             schema: {
                                 type: "object",
                                 properties: {
-                                    id: { type: "string" },
                                     title: { type: "string" },
                                     description: { type: "string" },
                                     tags: {
@@ -69,21 +230,17 @@ let openapi = {
                                         format: "date-time",
                                     },
                                     location: { type: "string" },
+                                    author_id: { type: "number" },
                                 },
-                                required: [
-                                    "id",
-                                    "title",
-                                    "event_time",
-                                    "location",
-                                ],
                             },
                             example: {
-                                id: "2",
-                                title: "asd",
-                                description: "test description",
-                                tags: ["asd", "test"],
-                                event_time: "1999-06-19T15:30:00.000Z",
-                                location: "test",
+                                title: "!1!",
+                                description:
+                                    "This is a description of an example meetup",
+                                tags: ["test", "second"],
+                                event_time: "2022-01-01T12:00:00Z",
+                                location: "Example street, 123",
+                                author_id: 1,
                             },
                         },
                     },
@@ -148,7 +305,7 @@ let openapi = {
                                 schema: {
                                     type: "object",
                                     properties: {
-                                        id: { type: "string" },
+                                        meetup_id: { type: "number" },
                                         title: { type: "string" },
                                         description: { type: "string" },
                                         tags: {
@@ -160,15 +317,23 @@ let openapi = {
                                             format: "date-time",
                                         },
                                         location: { type: "string" },
+                                        author_id: { type: "number" },
+                                        subscribers: {
+                                            type: "array",
+                                            items: { type: "number" },
+                                        },
                                     },
                                 },
                                 example: {
-                                    id: "2",
-                                    title: "asd",
-                                    description: "test description",
-                                    tags: ["asd", "test"],
-                                    event_time: "1999-06-19T15:30:00.000Z",
-                                    location: "test",
+                                    meetup_id: 25,
+                                    title: "!2!",
+                                    description:
+                                        "This is a description of an example meetup",
+                                    tags: ["test", "second"],
+                                    event_time: "2022-01-01T12:00:00.000Z",
+                                    location: "Example street, 123",
+                                    author_id: 2,
+                                    subscribers: [],
                                 },
                             },
                         },
@@ -227,11 +392,11 @@ let openapi = {
                                 },
                             },
                             example: {
-                                title: "Updated asd",
-                                description: "updated test description",
-                                tags: ["updated", "test"],
-                                event_time: "2024-08-01T18:00:00Z",
-                                location: "updated test",
+                                title: "tefffff32ggg2222232fst",
+                                description: "21",
+                                tags: ["testttt", "test"],
+                                event_time: "2024-11-05T22:00:00.000Z",
+                                location: "test",
                             },
                         },
                     },
